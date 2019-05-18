@@ -1,2 +1,0 @@
-# SICPJS
-Created with CodeSandbox
