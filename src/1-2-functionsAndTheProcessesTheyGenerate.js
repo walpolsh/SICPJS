@@ -152,21 +152,143 @@ function ex110() {
 
   const [a, b, c] = [Ackermann(1, 10), Ackermann(2, 4), Ackermann(3, 3)];
   function f(n) {
+    //f(n) is 2*n
     return Ackermann(0, n);
   }
   function g(n) {
+    // g(n) is 2𝑛
     return Ackermann(1, n);
   }
   function h(n) {
+    //h(n) is 2ℎ(𝑛−1) with h(0)=0, h(1)=2 respectively
     return Ackermann(2, n);
   }
   function k(n) {
+    //k(n) computes 5𝑛2
     return 5 * n * n;
   }
   return [a, b, c, f, g, h, k];
 }
 
 const [a, b, c, f, g, h, k] = ex110();
+
+/*
+Another common pattern of computation is called tree recursion. As an example, consider computing the sequence of Fibonacci numbers, in which each number is the sum of the preceding two:
+0,1,1,2,3,5,8,13,21,…
+In general, the Fibonacci numbers can be defined by the rule
+Fib(𝑛)=⎧ 0                     if 𝑛=0
+       | 1                     if 𝑛=1
+       ⎩ Fib(𝑛−1) + Fib(𝑛−2)   otherwise
+We can immediately translate this definition into a recursive function for computing Fibonacci numbers:
+*/
+function fib(n) {
+  return n === 0 ? 0 : n === 1 ? 1 : fib(n - 1) + fib(n - 2);
+  /*
+    Consider the pattern of this computation. 
+    To compute fib(5) , we compute fib(4) and fib(3) . 
+    To compute fib(4) , we compute fib(3) and fib(2) . 
+    In general, the evolved process looks like a tree.
+                            fib5
+                fib4                       fib3
+        fib3             fib2         fib2      fib1         
+    fib2    fib1     fib1   fib0  fib1  fib0    1
+  fib1 fib0   1       1       0      1     0
+  0      1
+
+  Notice that the branches split into two at each level (except at the bottom); 
+  this reflects the fact that the fib function calls itself twice each time it is invoked.
+  This function is instructive as a prototypical tree recursion, but it is a terrible way to compute Fibonacci numbers because it does so much redundant computation. 
+  Notice that the entire computation of fib(3)—almost half the work—is duplicated.
+  In fact, it is not hard to show that the number of times the function will compute fib(1) or fib(0) (the number of leaves in the above tree, in general) is precisely Fib(𝑛+1).
+  To get an idea of how bad this is, one can show that the value of Fib(𝑛) grows exponentially with 𝑛.
+  */
+
+  //In general, the number of steps required by a tree-recursive process will be proportional to the number of nodes in the tree, while the space required will be proportional to the maximum depth of the tree.
+}
+function fib2(n) {
+  //We can also formulate an iterative process for computing the Fibonacci numbers.
+  //The idea is to use a pair of integers 𝑎 and 𝑏, initialized to Fib(1)=1 and Fib(0)=0, and to repeatedly apply the simultaneous transformations
+  //𝑎 ← 𝑎 + 𝑏
+  //b ← 𝑎
+
+  //After applying this transformation 𝑛 times, 𝑎 and 𝑏 will be equal, respectively, to Fib(𝑛+1) and Fib(𝑛)
+  return fibIter(1, 0, n);
+}
+function fibIter(a, b, count) {
+  return count === 0 ? b : fibIter(a + b, a, count - 1);
+}
+
+//How many different ways can we make change of $1.00, given half-dollars, quarters, dimes, nickels, and pennies?
+//More generally, can we write a function to compute the number of ways to change any given amount of money?
+
+function countChange(amount) {
+  return cc(amount, 5);
+}
+
+function cc(amount, kindsOfCoins) {
+  //If 𝑎 is exactly 0, we should count that as 1 way to make change.
+  return amount === 0
+    ? 1
+    : //If 𝑎 is less than 0, we should count that as 0 ways to make change.
+    amount < 0 || kindsOfCoins === 0
+    ? //If 𝑛 (kindsOfCoins) is 0, we should count that as 0 ways to make change.
+      0
+    : cc(amount, kindsOfCoins - 1) +
+      cc(amount - firstDenomination(kindsOfCoins), kindsOfCoins);
+}
+
+function firstDenomination(kindsOfCoins) {
+  //takes as input the number of kinds of coins available and returns the denomination of the first kind.
+  //Here we are thinking of the coins as arranged in order from largest to smallest, but any order would do as well.
+  return kindsOfCoins === 1
+    ? 1
+    : kindsOfCoins === 2
+    ? 5
+    : kindsOfCoins === 3
+    ? 10
+    : kindsOfCoins === 4
+    ? 25
+    : kindsOfCoins === 5
+    ? 50
+    : 0;
+}
+
+function ex111() {
+  //A function 𝑓 is defined by the rule that 𝑓(𝑛)=𝑛 if 𝑛<3 and 𝑓(𝑛)=𝑓(𝑛−1)+2𝑓(𝑛−2)+3𝑓(𝑛−3) if 𝑛≥3.
+  //Write a JavaScript function that computes 𝑓 by means of a recursive process.
+  //Write a function that computes 𝑓 by means of an iterative process.
+  //iterative function
+  function fIterative(n) {
+    return n < 3 //𝑓(𝑛)=𝑛 if 𝑛< 3
+      ? n
+      : fIterativeImpl(2, 1, 0, n - 2);
+  }
+  function fIterativeImpl(a, b, c, count) {
+    //𝑓(𝑛)=𝑓(𝑛−1)+2𝑓(𝑛−2)+3𝑓(𝑛−3) if 𝑛≥3
+    return count === 0 ? a : fIterativeImpl(a + 2 * b + 3 * c, a, b, count - 1);
+  }
+
+  //recursive function
+
+  function fRecursive(n) {
+    // 𝑓(𝑛)=𝑛 if 𝑛< 3
+    return n < 3
+      ? n
+      : //𝑓(𝑛)=𝑓(𝑛−1)+2𝑓(𝑛−2)+3𝑓(𝑛−3) if 𝑛≥3
+        fRecursive(n - 1) + 2 * fRecursive(n - 2) + 3 * fRecursive(n - 3);
+  }
+  return [fIterative, fRecursive];
+}
+
+// Pascal's triangle.
+// The numbers at the edge of the triangle are all 1, and each number inside the triangle is the sum of the two numbers above it.
+function pascalTriangle(row, index) {
+  return index > row
+    ? false
+    : index === 1 || index === row
+    ? 1
+    : pascalTriangle(row - 1, index - 1) + pascalTriangle(row - 1, index);
+}
 
 export function functionsAndTheProcessesTheyGenerate() {
   return (
@@ -182,9 +304,17 @@ export function functionsAndTheProcessesTheyGenerate() {
       <div>
         {f(4)} {g(4)} {h(4)} {k(4)}
       </div>
+      <div>fib(4) {fib(4)}</div>
+      <div>fib2(4) {fib2(4)}</div>
+      <div>countChange= {countChange(10)}</div>
+      <div>
+        {ex111()[0](10)} {ex111()[1](10)}
+      </div>
+      <div>{pascalTriangle(8, 7)}</div>
       <div>{}</div>
       <div>{}</div>
       <div>{}</div>
+      <div>{`-----------------`}</div>
     </div>
   );
 }
