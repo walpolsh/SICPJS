@@ -68,7 +68,10 @@ function factIter(product, counter, maxCount) {
   720
   At each step, all we need to keep track of, for any 𝑛, are the current values of the names product, counter, and max_count. 
   We call this an iterative process. 
-  In general, an iterative process is one whose state can be summarized by the values of a fixed number of state names, together with a fixed rule that describes how the values of the state names should be updated as the process moves from state to state and an (optional) end test that specifies conditions under which the process should terminate. In computing 𝑛!, the number of steps required grows linearly with 𝑛. 
+  In general, an iterative process is one whose state can be summarized by the values of a fixed number of state names, 
+  together with a fixed rule that describes how the values of the state names should be updated as the process moves 
+  from state to state and an (optional) end test that specifies conditions under which the process should terminate. 
+  In computing 𝑛!, the number of steps required grows linearly with 𝑛. 
   Such a process is called a linear iterative process.
   */
 }
@@ -173,7 +176,8 @@ function ex110() {
 const [a, b, c, f, g, h, k] = ex110();
 
 /*
-Another common pattern of computation is called tree recursion. As an example, consider computing the sequence of Fibonacci numbers, in which each number is the sum of the preceding two:
+Another common pattern of computation is called tree recursion. As an example, consider computing the sequence of Fibonacci numbers, 
+in which each number is the sum of the preceding two:
 0,1,1,2,3,5,8,13,21,…
 In general, the Fibonacci numbers can be defined by the rule
 Fib(𝑛)=⎧ 0                     if 𝑛=0
@@ -197,9 +201,11 @@ function fib(n) {
 
   Notice that the branches split into two at each level (except at the bottom); 
   this reflects the fact that the fib function calls itself twice each time it is invoked.
-  This function is instructive as a prototypical tree recursion, but it is a terrible way to compute Fibonacci numbers because it does so much redundant computation. 
+  This function is instructive as a prototypical tree recursion, but it is a terrible way 
+  to compute Fibonacci numbers because it does so much redundant computation. 
   Notice that the entire computation of fib(3)—almost half the work—is duplicated.
-  In fact, it is not hard to show that the number of times the function will compute fib(1) or fib(0) (the number of leaves in the above tree, in general) is precisely Fib(𝑛+1).
+  In fact, it is not hard to show that the number of times the function will compute fib(1) or fib(0) 
+  (the number of leaves in the above tree, in general) is precisely Fib(𝑛+1).
   To get an idea of how bad this is, one can show that the value of Fib(𝑛) grows exponentially with 𝑛.
   */
 
@@ -207,10 +213,20 @@ function fib(n) {
 }
 function fib2(n) {
   //We can also formulate an iterative process for computing the Fibonacci numbers.
-  //The idea is to use a pair of integers 𝑎 and 𝑏, initialized to Fib(1)=1 and Fib(0)=0, and to repeatedly apply the simultaneous transformations
+  //The idea is to use a pair of integers 𝑎 and 𝑏, initialized to Fib(1)=1 and Fib(0)=0,
+  // and to repeatedly apply the simultaneous transformations
   //𝑎 ← 𝑎 + 𝑏
   //b ← 𝑎
+  /* 
 
+  fib(n)
+    fib(1,0,n)
+      fibIter(a,b,count)
+  fib(2)
+    fibIter(1,0,2)
+      count !== 0 
+
+  */
   //After applying this transformation 𝑛 times, 𝑎 and 𝑏 will be equal, respectively, to Fib(𝑛+1) and Fib(𝑛)
   return fibIter(1, 0, n);
 }

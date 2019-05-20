@@ -109,7 +109,6 @@ function ex117() {
   function multiplication(a, b) {
     //Here have a multiplication function analogous to fast_expt that uses a logarithmic number of steps.
     //We include addition, double: which doubles an integer, and halve: which divides an (even) integer by 2.
-    console.log(a, b);
     if (b === 1) {
       return a;
     } else if (a === 0 || b === 0) {
@@ -151,6 +150,62 @@ function ex118() {
   return multiply(2, 2);
 }
 
+function ex119() {
+  /*
+  There is a clever algorithm for computing the Fibonacci numbers in a logarithmic number of steps.
+  Recall the transformation of the state names 𝑎 and 𝑏 in the fib_iter process of Section 1.2.2: 𝑎←𝑎+𝑏 and 𝑏←𝑎.
+  Call this transformation 𝑇, and observe that applying 𝑇 over and over again 𝑛 times, starting with 1 and 0, produces the pair: 
+  Fib(𝑛+1) and Fib(𝑛).
+  In other words, the Fibonacci numbers are produced by applying 𝑇𝑛, the 𝑛th power of the transformation 𝑇, starting with the pair(1, 0).
+  Now consider 𝑇 to be the special case of 𝑝=0 and 𝑞=1 in a family of transformations 𝑇𝑝𝑞
+  Where 𝑇𝑝𝑞 transforms the pair (𝑎,𝑏) according to 𝑎←𝑏𝑞+𝑎𝑞+𝑎𝑝 and 𝑏←𝑏𝑝+𝑎𝑞. 
+  Show that if we apply such a transformation 𝑇𝑝𝑞 twice, the effect is the same as using a single transformation 𝑇𝑝′𝑞′ of the same form,
+  and compute 𝑝′ and 𝑞′ in terms of 𝑝 and 𝑞. This gives us an explicit way to square these transformations,
+  and thus we can compute 𝑇𝑛 using successive squaring, as in the fast_expt function. 
+  Put this all together to complete the following function, which runs in a logarithmic number of steps:
+  Another pure mathematical task.
+
+  We have some initial a, b and p, q and two transformations for calculating next a and b:
+  a1 <- bq + aq + ap
+  b1 <- bp + aq
+
+  When we apply same transformation (with the same p and q) to the new arguments we get:
+  b2 <- b1*p + a1*q
+  b2 <- (bp+aq)p + (bq+aq+ap)q
+  b2 <- bp^2 + apq + bq^2 + aq^2 + apq
+  b2 <- b(p^2 + q^2) + a(q^2 + 2pq),
+  which means that applying transformation twice with initial p and q are the same
+  as applying (p^2 + q^2) as p and (q^2 + 2pq) as q once. Eventually we can compute new
+  arguments for applying (p^2 + q^2) and (q^2 + 2pq) twice and so on.
+
+  In terms of Scheme new p and q are calculated like
+  (+ (square p) (square q))
+  (+ (square q) (* 2 p q))
+  respectively
+  */
+  function isEven(n) {
+    return n % 2 === 0;
+  }
+  function fib(n) {
+    return fibIter(1, 0, 0, 1, n); // starting with 1 and 0 apply Fib(n+1) and Fib(n) over and over n times.
+  }
+  function fibIter(a, b, p, q, count) {
+    return count === 0 // if count is 0
+      ? b //return
+      : isEven(count)
+      ? fibIter(
+          a, // 1
+          b, // 0
+          p * p + q * q, // 0 * 0 * + 1 * 1
+          2 * p * q + q * q, //2 * 0 * 1 + 1 * 1
+          count / 2 //split count in half
+        )
+      : fibIter(b * q + a * q + a * p, b * p + a * q, p, q, count - 1);
+  }
+
+  return fib;
+}
+
 export function OrdersOfGrowth() {
   return (
     <div>
@@ -165,7 +220,7 @@ export function OrdersOfGrowth() {
         {ex117()[0]} {ex117()[1]}
       </div>
       <div>{ex118()}</div>
-      <div>{}</div>
+      <div>fib {ex119()(14)}</div>
       <div>{}</div>
       <div>{}</div>
       <div>{}</div>
