@@ -85,11 +85,70 @@ function ex116() {
       return fastExptIter(state * base, base, exp - 1);
     }
   }
-  return fastExpt(32, 50);
+  return fastExpt2(32, 50);
 }
 
 function isEven(n) {
   return n % 2 === 0;
+}
+
+function ex117() {
+  function times(a, b) {
+    //This algorithm takes a number of steps that is linear in b.
+    return b === 0 ? 0 : a + a * (b - 1);
+  }
+
+  function halve(x) {
+    return x / 2;
+  }
+
+  function double(x) {
+    return x * 2;
+  }
+
+  function multiplication(a, b) {
+    //Here have a multiplication function analogous to fast_expt that uses a logarithmic number of steps.
+    //We include addition, double: which doubles an integer, and halve: which divides an (even) integer by 2.
+    console.log(a, b);
+    if (b === 1) {
+      return a;
+    } else if (a === 0 || b === 0) {
+      return 0;
+    } else if (isEven(b)) {
+      return double(multiplication(a, halve(b)));
+    } else {
+      return a + multiplication(a, b - 1);
+    }
+  }
+  return [times(3, 5), multiplication(3, 5)];
+}
+
+function ex118() {
+  // a multiplication function analogous to fast_expt that uses a logarithmic number of steps.
+  function halve(x) {
+    return x / 2;
+  }
+
+  function double(x) {
+    return x * 2;
+  }
+
+  function iteration(total, a, b) {
+    if (b === 1) {
+      return total + a;
+    } else if (a === 0 || b === 0) {
+      return 0;
+    } else if (isEven(b)) {
+      return iteration(total, double(a), halve(b));
+    } else {
+      return iteration(total + a, a, b - 1);
+    }
+  }
+  function multiply(a, b) {
+    return iteration(0, a, b);
+  }
+
+  return multiply(2, 2);
 }
 
 export function OrdersOfGrowth() {
@@ -102,6 +161,14 @@ export function OrdersOfGrowth() {
       <div>{expt2(32, 6)}</div>
       <div>{fastExpt(32, 6)}</div>
       <div>{ex116()}</div>
+      <div>
+        {ex117()[0]} {ex117()[1]}
+      </div>
+      <div>{ex118()}</div>
+      <div>{}</div>
+      <div>{}</div>
+      <div>{}</div>
+      <div>{}</div>
       <div>{}</div>
       <div>{}</div>
       <div>{}</div>
