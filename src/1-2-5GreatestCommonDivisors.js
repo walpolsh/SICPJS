@@ -45,12 +45,15 @@ function smallestDivisor(n) {
   return findDivsor(n, 2);
 }
 
+function next(n) {
+  return n === 2 ? 3 : n + 2;
+}
 function findDivsor(n, testDivisor) {
   return square(testDivisor) > n
     ? n
     : divides(testDivisor, n)
     ? testDivisor
-    : findDivsor(n, testDivisor + 1);
+    : findDivsor(n, next(testDivisor));
   // based on the fact that if 𝑛 is not prime it must have a divisor less than or equal to 𝑛√.
   //This means that the algorithm need only test divisors between 1 and 𝑛√.
   //Consequently, the number of steps required to identify 𝑛 as prime will have order of growth Θ(𝑛√).
@@ -118,6 +121,36 @@ function ex121() {
   }
   return smallestDivisor;
 }
+function ex128() {
+  function random(n) {
+    return Math.floor(Math.random() * n);
+  }
+  function millerRabinTest(n) {
+    function expmod(base, exp, m) {
+      return exp === 0
+        ? 1
+        : isEven(exp)
+        ? square(trivialTest(expmod(base, exp / 2, m), m)) % m
+        : (base * expmod(base, exp - 1, m)) % 2;
+    }
+
+    function trivialTest(r, m) {
+      return r === 1 || r === m ? r : square(r % m === 1 ? 0 : r);
+    }
+    function tryIt(a) {
+      return expmod(a, n - 1, n) === 1;
+    }
+    return tryIt(1 + random(n - 1));
+  }
+  function doMillerRabinTest(n, times) {
+    return times === 0
+      ? true
+      : millerRabinTest(n)
+      ? doMillerRabinTest(n, times - 1)
+      : false;
+  }
+  return doMillerRabinTest;
+}
 export function GreatestCommonDivisors() {
   return (
     <div>
@@ -129,13 +162,14 @@ export function GreatestCommonDivisors() {
       <div>{smallestDivisor(2516126)}</div>
       <div>{smallestDivisor(119)}</div>
       <div>{smallestDivisor(1999)}</div>
-      <div>{smallestDivisor(19999)}</div>
+      <div>{smallestDivisor(65)}</div>
       <div>{isPrime(151)}</div>
 
       <div>{fermatTest(1).toString()}</div>
       <div>{fastIsPrime(1, 1)}</div>
       <div>{fastIsPrime(1, 1)}</div>
       <div>{ex121()(150)}</div>
+      <div>{ex128()(123, 115)}</div>
       <div>-----------------</div>
     </div>
   );
