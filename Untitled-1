@@ -1,0 +1,33 @@
+the best method when possible is to actually
+formally prove that your code is correct
+and it is this method that we're going
+to briefly explore here we won't show
+you all the elements of proving programs
+correct but we will provide you with the
+basis for understanding how this is done
+and more importantly for using the
+reasoning pattern underlying this proof
+method to help you design good code
+first we need to talk about what
+constitutes a formal proof technically a
+proof of a mathematical or logical
+proposition is a chain or sequence of
+logical deductions that starts with a
+base set of axioms and heads towards or
+leads towards the proposition we are
+attempting to prove now we need to fill
+in the details on those pieces first a
+proposition is basically a statement
+that's either true or false
+typically in propositional logic we have
+a set of atomic propositions that is
+simple statements of fact
+for example N equals 0 is an atomic
+proposition it's either true or false
+given some value for the variable n
+there's no other choice of course that
+assumes it ends a number more
+interesting propositions and things were
+more likely to be interested in proving
+are created by combining simpler
+propositions there are five standard
