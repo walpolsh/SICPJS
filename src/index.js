@@ -12,9 +12,9 @@ function App() {
   return (
     <div className="App">
       <div>{FormulatingAbstractionsWithHigherFunctions()}</div>
-      <div>{OrdersOfGrowth()}</div>
-      <div>{functionsAndTheProcessesTheyGenerate()}</div>
       <div>{buildingAbstractionsWithFunctions()}</div>;
+      <div>{GreatestCommonDivisors()}</div>;<div>{OrdersOfGrowth()}</div>
+      <div>{functionsAndTheProcessesTheyGenerate()}</div>
       <div>{mergeSort(list)}</div>
     </div>
   );

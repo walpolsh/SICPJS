@@ -28,4 +28,3 @@ function quickSort(arr, low, high) {
 
 let arr = [10, 8, 6, 4, 2, 1];
 let arr2 = quickSort(arr, 0, arr.length - 1);
-console.log(arr2);

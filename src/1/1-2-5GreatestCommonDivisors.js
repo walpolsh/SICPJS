@@ -81,7 +81,6 @@ function isEven(x) {
 }
 let randomnum = n => Math.floor(Math.random() * 15000);
 function random(n) {
-  console.log(randomnum(n));
   return randomnum(n);
 }
 function expmod(base, exp, m) {
@@ -101,7 +100,6 @@ function fermatTest(n) {
 }
 
 function fastIsPrime(n, times) {
-  console.log(times);
   return times === 0 ? true : fermatTest(n) ? fastIsPrime(n, times - 1) : false;
 }
 function ex121() {

@@ -8,7 +8,7 @@ function sumIntegers(a, b) {
   return a > b ? 0 : a + sumIntegers(a + 1, b);
 }
 
-// The second computes the sum of the cubes of the integers in the given range which converges to 𝜋/8 (very slowly):[1]
+// The second computes the sum of the cubes of the integers `in` the given range which converges to 𝜋/8 (very slowly):[1]
 function sumCubes(a, b) {
   return a > b ? 0 : cube(a + sumCubes(a + 1, b));
 }
@@ -61,6 +61,13 @@ function piSum2(a, b) {
   return sum(piTerm, a, piNext, b);
 }
 
+function integral(f, a, b, dx) {
+  function addDx(x) {
+    return x + dx;
+  }
+  return sum(f, a + dx / 2, addDx, b) * dx;
+}
+
 export function FormulatingAbstractionsWithHigherFunctions() {
   return (
     <div>
@@ -77,6 +84,10 @@ export function FormulatingAbstractionsWithHigherFunctions() {
       <div>sumIntegers2 {sumIntegers2(2, 3)}</div>
       <div>piSum2 {piSum2(2, 3)}</div>
       <div>piSum2 {piSum2(25, 167)}</div>
+      <div>integral {integral(cube, 0, 1, 0.1)}</div>
+      <div>{}</div>
+      <div>{}</div>
+      <div>{}</div>
       <div>{}</div>
       <div>{}</div>
       <div>{}</div>
