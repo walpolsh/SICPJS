@@ -6,11 +6,13 @@ import { OrdersOfGrowth } from "./1/1-2-3OrdersOfGrowth.js";
 import { GreatestCommonDivisors } from "./1/1-2-5GreatestCommonDivisors.js";
 import { FormulatingAbstractionsWithHigherFunctions } from "./1/1-3FormulatingAbstractionsWithHigherFunctions";
 import { mergeSort } from "./mergeSort";
+import { FunctionsAsGeneralMethods } from "./1/1-3-3FunctionsAsGeneralMethods";
 import "./styles.css";
 const list = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 function App() {
   return (
     <div className="App">
+      <div>{FunctionsAsGeneralMethods()}</div>
       <div>{FormulatingAbstractionsWithHigherFunctions()}</div>
       <div>{buildingAbstractionsWithFunctions()}</div>;
       <div>{GreatestCommonDivisors()}</div>;<div>{OrdersOfGrowth()}</div>
