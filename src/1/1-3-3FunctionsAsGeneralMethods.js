@@ -63,6 +63,100 @@ function halfIntervalMethod(f, a, b) {
 }
 console.log(halfIntervalMethod(Math.sign, 4, -5));
 // General utility function
+
+// Finding fixed points of functions
+// // A number 𝑥 is called a fixed point of a function 𝑓 if 𝑥 satisfies the equation 𝑓(𝑥)=𝑥.
+// For some functions 𝑓 we can locate a fixed point by beginning with an initial guess and applying 𝑓 repeatedly,
+// // 𝑓(𝑥), 𝑓(𝑓(𝑥)), 𝑓(𝑓(𝑓(𝑥))), …
+// until the value does not change very much.Using this idea, we can devise a function fixed_point that takes as inputs
+// a function and an initial guess and produces an approximation to a fixed point of the function.We apply the function repeatedly
+// until we find two successive values whose difference is less than some prescribed tolerance:
+const tolerance = 0.00001;
+function fixedPoint(f, firstGuess) {
+  function closeEnough(x, y) {
+    return Math.abs(x - y) < tolerance;
+  }
+  function tryWith(guess) {
+    const next = f(guess);
+    return closeEnough(guess, next) ? next : tryWith(next);
+  }
+  return tryWith(firstGuess);
+}
+
+// The fixed - point process is reminiscent of the process we used for finding square roots in Section 1.1.7.
+// Both are based on the idea of repeatedly improving a guess until the result satisfies some criterion.
+// In fact, we can readily formulate the square - root computation as a fixed - point search.
+// Computing the square root of some number 𝑥 requires finding a 𝑦 such that 𝑦2 =𝑥.
+// Putting this equation into the equivalent form 𝑦=𝑥/𝑦, we recognize that we are looking for a fixed point of the
+// function[5] 𝑦↦𝑥/𝑦, and we can therefore try to compute square roots as
+function sqrt(x) {
+  return fixedPoint(y => average(y, x / y), 1.0);
+}
+//(Note that 𝑦 = 1 / 2 * ( 𝑦 + 𝑥 / 𝑦) is a simple transformation of the equation 𝑦=𝑥/𝑦;
+//to derive it, add 𝑦 to both sides of the equation and divide by 2.)
+
+function ex135() {
+  //   Exercise 1.35
+  //   Show that the golden ratio 𝜙 is a fixed point of the transformation 𝑥↦1 + 1 /𝑥,
+  //   and use this fact to compute 𝜙 by means of the fixed_point function.
+  //   The fixed point of the function is 1 + 1 /𝑥=𝑥
+  //   Solving for x, we get 𝑥2 =𝑥+1 and 𝑥2−𝑥−1 = 0
+  //   Using the quadratic equation to solve for x, we find that one of the roots of this equation is(1 +𝑠𝑞𝑟𝑡(5)) / 2,
+  //   which is the golden ratio(approximately 1.618).
+  function abs(x) {
+    return x >= 0 ? x : -x;
+  }
+  //Using the quadratic equation to solve for x, we find that one of the roots of this equation is (1+𝑠𝑞𝑟𝑡(5))/2, which is the golden ratio (approximately 1.618).
+  const tolerance = 0.00001;
+  function fixedPoint(f, firstGuess) {
+    function closeEnough(x, y) {
+      return abs(x - y) < tolerance;
+    }
+    function tryWith(guess) {
+      const next = f(guess);
+      return closeEnough(guess, next) ? next : tryWith(next);
+    }
+    return tryWith(firstGuess);
+  }
+  console.log();
+  return fixedPoint;
+}
+function ex137() {
+  // An infinite continued fraction is an expression of the form
+  // 𝑓 = 𝑁1 / 𝐷1 +𝑁2 / 𝐷2 +𝑁3𝐷3 + ⋯
+  // As an example, one can show that the infinite continued fraction expansion with the 𝑁𝑖 and the 𝐷𝑖
+  // all equal to 1 produces 1 /𝜙, where 𝜙 is the golden ratio(described in Section 1.2.2).
+  // One way to approximate an infinite continued fraction is to truncate the expansion after a given number of terms.
+  // Such a truncation—a so - called 𝑘-term finite continued fraction—has the form
+  // 𝑁1 𝐷1 + 𝑁2 ⋱ + 𝑁𝐾 𝐷𝐾
+  // Suppose that n and d are functions of one argument(the term index 𝑖) that return the 𝑁𝑖 and 𝐷𝑖 of the terms of the continued fraction.
+  // Define a function cont_frac such that evaluating cont_frac(n, d, k) computes the value of the 𝑘-term finite continued fraction.
+  // Check your function by approximating 1 /𝜙 using for successive values of k.
+  // How large must you make k in order to get an approximation that is accurate to 4 decimal places?
+  // If your cont_frac function generates a recursive process, write one that generates an iterative process.
+  // If it generates an iterative process, write one that generates a recursive process.
+  function contFracIter(n, d, k) {
+    function iter(counter, result) {
+      return counter === 0
+        ? result
+        : iter(counter - 1, counter / (counter + result));
+    }
+    return iter(k, 0);
+  }
+  function contFracRecur(n, d, k) {
+    function recu(x, y) {
+      return x === y ? x / y : x / (1 + recu(x + 1, y));
+    }
+    return recu(1, k);
+  }
+  return { contFracIter: contFracIter, contFracRecur: contFracRecur };
+  //call the function and access with dot notation.
+}
+
+//accessing returned object with dot notation.
+let lucky = x => x + "💵";
+let fn2 = (fn, x) => ({ money: fn(x) });
+
 const fn = (fn, a) => fn(a);
 
 const res = fn(x => x + x, 3);
@@ -90,6 +184,25 @@ export function FunctionsAsGeneralMethods() {
       <div>{res2}</div>
       <div>{res3}</div>
       <div>{halfIntervalMethod(Math.sign, 4, -5)}</div>
+      we can use this method to approximate the fixed point of the cosine
+      function, starting with 1 as an initial approximation{" "}
+      <div>{fixedPoint(Math.cos, 1.0)}</div>
+      Similarly, we can find a solution to the equation 𝑦=sin 𝑦 + cos 𝑦:
+      <div>{fixedPoint(y => Math.sign(y) + Math.cos(y), 1.0)}</div>
+      <div>{sqrt(16)}</div>
+      <div>{ex135()(x => 277 + 0 / x, 1.0)}</div>
+      <div>{ex135()(x => 277 + 1 / x, 1.0)}</div>
+      <div>{ex135()(x => 277 + 2 / x, 1.0)}</div>
+      <div>{ex135()(x => 277 + 3 / x, 1.0)}</div>
+      <div>af{ex137().contFracIter(i => 1.0, i => 1.0, 2)}</div>
+      <div>af{ex137().contFracRecur(i => 1.0, i => 1.0, 2)}</div>
+      <div>lucky {fn2(lucky, "money").money}</div>
+      <div>add4000 , 4 {fn2(add4000, 4).money.toString()}</div>
+      <div>{}</div>
+      <div>{}</div>
+      <div>{}</div>
+      <div>{}</div>
+      <div>{}</div>
       <div>{}</div>
       <div>{}</div>
       <div>{}</div>
