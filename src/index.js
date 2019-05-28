@@ -8,13 +8,13 @@ import { FormulatingAbstractionsWithHigherFunctions } from "./1/1-3FormulatingAb
 import { mergeSort } from "./mergeSort";
 import { FunctionsAsGeneralMethods } from "./1/1-3-3FunctionsAsGeneralMethods";
 import { FunctionsAsReturnedValues } from "./1/1-3-4FunctionsAsReturnedValues";
-import { arithmeticOperationsForRationalNumbers } from "./2/2-1-1arithmeticOperationsForRationalNumbers";
+import { ArithmeticOperationsForRationalNumbers } from "./2/2-1-1ArithmeticOperationsForRationalNumbers";
 import "./styles.css";
 const list = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 function App() {
   return (
     <div className="App">
-      <div>{arithmeticOperationsForRationalNumbers}</div>
+      <div>{ArithmeticOperationsForRationalNumbers}</div>
       <div>{FunctionsAsReturnedValues}</div>
       <div>{FunctionsAsGeneralMethods()}</div>
       <div>{FormulatingAbstractionsWithHigherFunctions()}</div>
