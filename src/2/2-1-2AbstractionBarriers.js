@@ -186,10 +186,15 @@ export const AbstractionBarriers = (
   <div>
     <div>--------------------------</div>
     <div>AbstractionBarriers</div>
+    printRat(oneHalf)
     <div>{printRat(oneHalf)}</div>
+    printRat(twoFifths)
     <div>{printRat(twoFifths)}</div>
+    ex220()
     <div>{ex220()}</div>
+    ex230()[0]
     <div>{ex230()[0]}</div>
+    ex230()[1]
     <div>{ex230()[1]}</div>
     <div>{}</div>
     <div>{}</div>

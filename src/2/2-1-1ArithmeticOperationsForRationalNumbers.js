@@ -155,15 +155,24 @@ const rat2 = make_rat2(3, -4);
 const rat3 = equal_rat(4, 4);
 export const ArithmeticOperationsForRationalNumbers = (
   <div>
+    <div>ArithmeticOperationsForRationalNumbers</div>
+    linearCombination(12, 42, 1, 1)
     <div>{linearCombination(12, 42, 1, 1)}</div>
+    linearCombination2(12, 25, 24, 1)
     <div>{linearCombination2(12, 25, 24, 1)}</div>
+    x.x + x.y
     <div>{x.x + x.y}</div>
+    rat2.y + rat2.y + rat2.x
     <div>{rat2.y + rat2.y + rat2.x}</div>
+    rat3.toString()
     <div>{rat3.toString()}</div>
+    one_third.y + one_half.x one_third.y + one_third.y
     <div>
       {one_third.y + one_half.x} {one_third.y + one_third.y}
     </div>
+    gcd(2, 6)
     <div>{gcd(2, 6)}</div>
+    make_rat2(3, 1).y
     <div>{make_rat2(3, 1).y}</div>
     <div>{}</div>
     <div>{}</div>
