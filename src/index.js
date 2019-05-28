@@ -9,11 +9,13 @@ import { mergeSort } from "./mergeSort";
 import { FunctionsAsGeneralMethods } from "./1/1-3-3FunctionsAsGeneralMethods";
 import { FunctionsAsReturnedValues } from "./1/1-3-4FunctionsAsReturnedValues";
 import { ArithmeticOperationsForRationalNumbers } from "./2/2-1-1ArithmeticOperationsForRationalNumbers";
+import { AbstractionBarriers } from "./2/2-1-2AbstractionBarriers";
 import "./styles.css";
 const list = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 function App() {
   return (
     <div className="App">
+      <div>{AbstractionBarriers}</div>
       <div>{ArithmeticOperationsForRationalNumbers}</div>
       <div>{FunctionsAsReturnedValues}</div>
       <div>{FunctionsAsGeneralMethods()}</div>

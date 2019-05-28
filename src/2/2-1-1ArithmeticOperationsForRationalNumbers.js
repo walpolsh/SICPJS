@@ -90,20 +90,29 @@ Even so, if we did have these three functions, we could then add, subtract, mult
 𝑛1/𝑑1⋅𝑛2/𝑑2 = 𝑛1𝑛2/𝑑1𝑑2
 𝑛1 /𝑑1𝑛2/𝑑2 = 𝑛1𝑑2/𝑑1𝑛2
 𝑛1/𝑑1= 𝑛2/𝑑2 if and only if  𝑛1/𝑑2= 𝑛2/𝑑1
+We can express these rules as functions:
+
 */
 const pair = (x, y) => ({ x, y });
 const x = pair(1, 2);
-const head = ({ x, y }) => x;
-const tail = ({ x, y }) => y;
+const head = x => x;
+const tail = x => x;
 const make_rat = pair;
-const numer = head;
+const numer = reduce;
 const denom = tail;
 function display(x) {
-  return x;
+  console.log(x);
 }
-
+//rat = rational numbers
 function print_rat(x) {
   return display(numer(x) + "/" + denom(x));
+}
+function reduce(numerator, denominator) {
+  let gcd = function gcd(a, b) {
+    return b ? gcd(b, a % b) : a;
+  };
+  gcd = gcd(numerator, denominator);
+  return [numerator / gcd, denominator / gcd];
 }
 
 function add_rat(x, y) {
@@ -129,6 +138,7 @@ function equal_rat(x, y) {
 }
 
 const one_half = make_rat(1, 2);
+const one_third = make_rat(1, 3);
 
 print_rat(one_half);
 
@@ -142,13 +152,24 @@ function make_rat2(n, d) {
 }
 
 const rat2 = make_rat2(3, -4);
-
+const rat3 = equal_rat(4, 4);
 export const ArithmeticOperationsForRationalNumbers = (
   <div>
     <div>{linearCombination(12, 42, 1, 1)}</div>
     <div>{linearCombination2(12, 25, 24, 1)}</div>
     <div>{x.x + x.y}</div>
     <div>{rat2.y + rat2.y + rat2.x}</div>
+    <div>{rat3.toString()}</div>
+    <div>
+      {one_third.y + one_half.x} {one_third.y + one_third.y}
+    </div>
+    <div>{gcd(2, 6)}</div>
+    <div>{make_rat2(3, 1).y}</div>
+    <div>{}</div>
+    <div>{}</div>
+    <div>{}</div>
+    <div>{}</div>
+    <div>{}</div>
     <div>{}</div>
     <div>{}</div>
     <div>{}</div>
