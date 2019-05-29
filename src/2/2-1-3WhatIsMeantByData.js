@@ -100,13 +100,48 @@ function ex250() {
   return [myHead(pair3), myTail(pair3)];
 }
 
+//In case representing pairs as functions wasn't mind-boggling enough, consider that, in a language that can manipulate functions, we can get by without numbers
+//(at least insofar as nonnegative integers are concerned) by implementing 0 and the operation of adding 1
+//This representation is known as Church numerals, after its inventor, Alonzo Church, the logician who invented the 𝜆 calculus.
+//Define one and two directly (not in terms of zero and add_1).
+//(Hint: Use substitution to evaluate add_1(zero)).
+//Give a direct definition of the addition function + (not in terms of repeated application of add_1).
+
+function body() {
+  function penis(x) {
+    return x;
+  }
+  return { penis: penis };
+}
+
+console.log(body().penis("penis"));
+
+function body2() {
+  function penis(x) {
+    return x;
+  }
+  return penis;
+}
+console.log(body2()("penis"));
+//penis
+
 function ex260() {
-  //In case representing pairs as functions wasn't mind-boggling enough, consider that, in a language that can manipulate functions, we can get by without numbers
-  //(at least insofar as nonnegative integers are concerned) by implementing 0 and the operation of adding 1
-  //This representation is known as Church numerals, after its inventor, Alonzo Church, the logician who invented the 𝜆 calculus.
-  //Define one and two directly (not in terms of zero and add_1).
-  //(Hint: Use substitution to evaluate add_1(zero)).
-  //Give a direct definition of the addition function + (not in terms of repeated application of add_1).
+  const zero = f => x => x;
+  function add1(n) {
+    return f => x => f(n(f)(x));
+  }
+  function one() {
+    return f => x => f(x);
+  }
+  function two() {
+    return f => x => f(f(x));
+  }
+
+  function addition(n1, n2) {
+    return f => x => n1(f)(n2(f)(x));
+  }
+
+  return { zero: zero, add1: add1, one: one, two: two, addition: addition };
 }
 export const WhatIsMeantByData = (
   <div>
@@ -130,6 +165,12 @@ export const WhatIsMeantByData = (
     <div>
       {ex250()[0]} {ex250()[0]}
     </div>
+    <div>{ex260().zero(square)(24)}</div>
+    <div>{ex260().zero(ex260().add1)(24)}</div>
+    <div>{ex260().one()(square)(4)}</div>
+    <div>{ex260().two()(square)(4)}</div>
+    <div>{}</div>
+    <div>{}</div>
     <div>{}</div>
     <div>--------------------------</div>
   </div>
