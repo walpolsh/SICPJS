@@ -18,6 +18,7 @@ const list = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 function App() {
   return (
     <div className="App">
+      <div>{mergeSort(list)}</div>
       <div>{RepresentingSequences}</div>
       <div>{IntervalArithmetic()}</div>
       <div>{WhatIsMeantByData}</div>
@@ -29,7 +30,6 @@ function App() {
       <div>{buildingAbstractionsWithFunctions()}</div>;
       <div>{GreatestCommonDivisors()}</div>;<div>{OrdersOfGrowth()}</div>
       <div>{functionsAndTheProcessesTheyGenerate()}</div>
-      <div>{mergeSort(list)}</div>
     </div>
   );
 }
