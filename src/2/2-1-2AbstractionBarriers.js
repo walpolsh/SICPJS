@@ -7,6 +7,7 @@ We can envision the structure of the rational-number system as shown:
 Rational Numbers in the problem domain
 - addRat subCat .... - 
 Rational numbers as numerators and denominators
+
 - makeRat numer denom -
 Rational numbers as pairs
 - cons car cdr -

@@ -211,27 +211,31 @@ function fib(n) {
 
   //In general, the number of steps required by a tree-recursive process will be proportional to the number of nodes in the tree, while the space required will be proportional to the maximum depth of the tree.
 }
+//We can also formulate an iterative recursion process for computing the Fibonacci numbers.
+//Use integers 𝑎 and 𝑏, initialized to Fib(1)=1 and Fib(0)=0,
+// and to repeatedly apply the simultaneous transformations
+//𝑎 ← 𝑎 + 𝑏
+//b ← 𝑎
+
+/* 
+
+fib(n)
+  fib(1,0,n)
+    fibIter(a,b,count)
+fib(2)
+  fibIter(1,0,2)
+    count !== 0 
+
+*/
+//After applying this transformation 𝑛 times, 𝑎 and 𝑏 will be equal, respectively, to Fib(𝑛+1) and Fib(𝑛)
+function log(x) {
+  console.log(x);
+}
 function fib2(n) {
-  //We can also formulate an iterative process for computing the Fibonacci numbers.
-  //The idea is to use a pair of integers 𝑎 and 𝑏, initialized to Fib(1)=1 and Fib(0)=0,
-  // and to repeatedly apply the simultaneous transformations
-  //𝑎 ← 𝑎 + 𝑏
-  //b ← 𝑎
-  /* 
-
-  fib(n)
-    fib(1,0,n)
-      fibIter(a,b,count)
-  fib(2)
-    fibIter(1,0,2)
-      count !== 0 
-
-  */
-  //After applying this transformation 𝑛 times, 𝑎 and 𝑏 will be equal, respectively, to Fib(𝑛+1) and Fib(𝑛)
   return fibIter(1, 0, n);
 }
 function fibIter(a, b, count) {
-  return count === 0 ? b : fibIter(a + b, a, count - 1);
+  return log(count === 0 ? b : fibIter(a + b, a, count - 1));
 }
 
 //How many different ways can we make change of $1.00, given half-dollars, quarters, dimes, nickels, and pennies?
@@ -321,7 +325,7 @@ export function functionsAndTheProcessesTheyGenerate() {
         {f(4)} {g(4)} {h(4)} {k(4)}
       </div>
       <div>fib(4) {fib(4)}</div>
-      <div>fib2(4) {fib2(4)}</div>
+      <div>fib2(4) {fib2(171)}</div>
       <div>countChange= {countChange(10)}</div>
       <div>
         {ex111()[0](10)} {ex111()[1](10)}

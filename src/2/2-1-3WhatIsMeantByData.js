@@ -108,22 +108,19 @@ function ex250() {
 //Give a direct definition of the addition function + (not in terms of repeated application of add_1).
 
 function body() {
-  function penis(x) {
+  function dataOut(x) {
     return x;
   }
-  return { penis: penis };
+  return { dataOut };
 }
-
-console.log(body().penis("penis"));
 
 function body2() {
-  function penis(x) {
+  function dataOut(x) {
     return x;
   }
-  return penis;
+  return dataOut;
 }
-console.log(body2()("penis"));
-//penis
+//dataOut
 
 function ex260() {
   const zero = f => x => x;
@@ -139,7 +136,7 @@ function ex260() {
 
   function addition(n1, n2) {
     return f => x => n1(f)(n2(f)(x));
-  }
+  } // doesn't make sense? how can you apply a function to a function with no return value?
 
   return { zero: zero, add1: add1, one: one, two: two, addition: addition };
 }
@@ -169,8 +166,8 @@ export const WhatIsMeantByData = (
     <div>{ex260().zero(ex260().add1)(24)}</div>
     <div>{ex260().one()(square)(4)}</div>
     <div>{ex260().two()(square)(4)}</div>
-    <div>{}</div>
-    <div>{}</div>
+    <div>{body().dataOut("dataOut")}</div>
+    <div>{body2()("dataOut")}</div>
     <div>{}</div>
     <div>--------------------------</div>
   </div>
