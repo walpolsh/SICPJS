@@ -61,7 +61,6 @@ function halfIntervalMethod(f, a, b) {
     ? search(f, b, a)
     : console.error("values are not of opposite sign " + a + " " + b);
 }
-console.log(halfIntervalMethod(Math.sign, 4, -5));
 // General utility function
 
 // Finding fixed points of functions
@@ -118,7 +117,6 @@ function ex135() {
     }
     return tryWith(firstGuess);
   }
-  console.log();
   return fixedPoint;
 }
 function ex137() {

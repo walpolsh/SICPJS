@@ -235,7 +235,7 @@ function fib2(n) {
   return fibIter(1, 0, n);
 }
 function fibIter(a, b, count) {
-  return log(count === 0 ? b : fibIter(a + b, a, count - 1));
+  return count === 0 ? b : fibIter(a + b, a, count - 1);
 }
 
 //How many different ways can we make change of $1.00, given half-dollars, quarters, dimes, nickels, and pennies?
@@ -331,7 +331,9 @@ export function functionsAndTheProcessesTheyGenerate() {
         {ex111()[0](10)} {ex111()[1](10)}
       </div>
       <div>{pascalTriangle(8, 7)}</div>
-      <div>{}</div>
+      <div>{fibIter(14, 4848, 48)}</div>
+      <div>{fibIter(14, 448, 48)}</div>
+      <div>{fibIter(15, 18, 48)}</div>
       <div>{}</div>
       <div>{}</div>
       <div>{`-----------------`}</div>

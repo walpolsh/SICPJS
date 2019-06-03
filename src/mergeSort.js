@@ -2,7 +2,7 @@ export function mergeSort(list, left = [], right = []) {
   if (list.length <= 1) {
     return list;
   }
-  list.map((_, i) =>
+  list.forEach((_, i) =>
     i < list.length / 2 ? left.push(list[i]) : right.push(list[i])
   );
   return merge(mergeSort(left), mergeSort(right));
