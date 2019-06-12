@@ -15,9 +15,15 @@ import { IntervalArithmetic } from "./2/2-1-4IntervalArithmetic";
 import { RepresentingSequences } from "./2/2-2-1RepresentingSequences";
 import "./styles.css";
 const list = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+const functions = {
+  add: (x, y) => x + y,
+  subtract: (x, y) => x - y
+};
 function App() {
   return (
     <div className="App">
+      <div>{functions.add(1, 2)}</div>
+      <div>{functions.subtract(1, 2)}</div>
       <div>{mergeSort(list)}</div>
       <div>{RepresentingSequences}</div>
       <div>{IntervalArithmetic()}</div>
